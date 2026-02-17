@@ -162,106 +162,96 @@
         </div>
     </div>
 
-    <script>
-        // Global state
-        const urlParams = new URLSearchParams(window.location.search);
-        const discordId = urlParams.get('discord_id');
-        let verificationInProgress = false;
-        let generatedCode = '';
+   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const discordId = urlParams.get('discord_id');
+    let verificationInProgress = false;
+    let generatedCode = '';
 
-        // Initialize page
-        function initPage() {
-            if (discordId) {
-                document.getElementById('no-discord').classList.add('hidden');
-                document.getElementById('step1').classList.remove('hidden');
-                document.getElementById('discord-id').textContent = discordId;
-                document.getElementById('discord-step').classList.remove('bg-primary/30');
-                document.getElementById('discord-step').classList.add('bg-primary');
-            } else {
-                document.getElementById('no-discord').classList.remove('hidden');
-                document.getElementById('step1').classList.add('hidden');
-            }
-        }
-
-        // Generate verification code
-        async function startVerification() {
-            if (verificationInProgress) return;
-            
-            verificationInProgress = true;
-            
-            // Show loading
+    function initPage() {
+        if (discordId) {
+            document.getElementById('no-discord').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('discord-id').textContent = discordId;
+            document.getElementById('discord-step').classList.remove('bg-primary/30');
+            document.getElementById('discord-step').classList.add('bg-primary');
+        } else {
+            document.getElementById('no-discord').classList.remove('hidden');
             document.getElementById('step1').classList.add('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('loading-text').textContent = 'Generating secure code...';
-
-            try {
-                const response = await fetch('/api/start-oauth', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ discordId: discordId })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.success && data.code) {
-                    generatedCode = data.code;
-                    showCodeScreen(data.code);
-                } else {
-                    throw new Error(data.error || 'No code received');
-                }
-            } catch (error) {
-                console.error('Code generation failed:', error);
-                showError('Connection Failed', 
-                    'Could not connect to verification service. ' +
-                    'Please try again or contact support in Discord.');
-            }
         }
+    }
 
-        // Show massive code screen
-        function showCodeScreen(code) {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('success-state').classList.remove('hidden');
-            document.getElementById('code-display').textContent = code;
-            
-            // Update progress
-            document.getElementById('roblox-step').classList.remove('bg-thunder/30');
-            document.getElementById('roblox-step').classList.add('bg-thunder');
-            document.getElementById('verified-step').classList.remove('hidden');
-        }
+    async function startVerification() {
+        if (verificationInProgress) return;
+        
+        verificationInProgress = true;
+        
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('loading').classList.remove('hidden');
+        document.getElementById('loading-text').textContent = 'Generating secure code...';
 
-        // Copy code to clipboard
-        function copyCode() {
-            navigator.clipboard.writeText(generatedCode).then(() => {
-                const btn = document.getElementById('copy-btn');
-                const original = btn.innerHTML;
-                btn.innerHTML = '✅ Copied!';
-                btn.classList.add('bg-green-500', 'text-white');
-                btn.classList.remove('from-thunder', 'to-yellow-500', 'text-gray-900');
-                
-                setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.classList.remove('bg-green-500', 'text-white');
-                    btn.classList.add('from-thunder', 'to-yellow-500', 'text-gray-900');
-                }, 2000);
-            }).catch(() => {
-                alert('Copy failed! Please copy manually: ' + generatedCode);
+        try {
+            const response = await fetch('/api/start-oauth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ discordId: discordId })
             });
-        }
 
-        // Show error screen
-        function showError(title, message) {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('error-state').classList.remove('hidden');
-            document.getElementById('error-title').textContent = title;
-            document.getElementById('error-message').textContent = message;
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            const data = await response.json();
+            
+            if (data.success && data.code) {
+                generatedCode = data.code;
+                showCodeScreen(data.code);
+            } else {
+                throw new Error(data.error || 'No code received');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError('Failed', 'Try again or contact support.');
         }
+    }
 
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', initPage);
-    </script>
+    function showCodeScreen(code) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('success-state').classList.remove('hidden');
+        document.getElementById('code-display').textContent = code;
+        document.getElementById('roblox-step').classList.remove('bg-thunder/30');
+        document.getElementById('roblox-step').classList.add('bg-thunder');
+        document.getElementById('verified-step').classList.remove('hidden');
+    }
+
+    function copyCode() {
+        navigator.clipboard.writeText(generatedCode).then(() => {
+            const btn = document.getElementById('copy-btn');
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Copied!';
+            btn.classList.add('bg-green-500', 'text-white');
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.classList.remove('bg-green-500', 'text-white');
+            }, 2000);
+        });
+    }
+
+    function showError(title, message) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error-state').classList.remove('hidden');
+        document.getElementById('error-title').textContent = title;
+        document.getElementById('error-message').textContent = message;
+    }
+
+    // ✅ CRITICAL: ATTACH BUTTON EVENT LISTENER
+    document.addEventListener('DOMContentLoaded', function() {
+        initPage();
+        const verifyBtn = document.getElementById('verify-btn');
+        if (verifyBtn) {
+            verifyBtn.addEventListener('click', startVerification);
+            console.log('✅ Button connected!');
+        }
+    });
+</script>
+
 </body>
 </html>
