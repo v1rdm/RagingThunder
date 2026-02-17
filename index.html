@@ -225,33 +225,46 @@
                 });
 
                 const data = await response.json();
-                
-             if (data.success && data.code) {
-    // ✅ Show verification code!
+          if (data.success && data.code) {
+    // ✅ PERFECT CODE DISPLAY - Keeps your design!
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('success-state').classList.remove('hidden');
     
-    // Update success message with code
-    const successDiv = document.querySelector('#success-state > div');
-    successDiv.innerHTML = `
-        <div class="text-center space-y-6">
-            <div class="w-32 h-32 bg-green-500/20 rounded-3xl mx-auto flex items-center justify-center border-4 border-green-500/30">
-                <i class="fas fa-key text-5xl text-green-500"></i>
-            </div>
-            <h2 class="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">Your Code!</h2>
-            <div class="bg-black/50 p-8 rounded-3xl border-4 border-thunder/50">
-                <div class="text-5xl font-bold text-thunder mb-4 font-mono tracking-widest">${data.code}</div>
-                <p class="text-white/80 text-lg">Copy this and paste in Discord <code class="bg-gray-900 px-3 py-1 rounded text-thunder">/verify</code></p>
-            </div>
-            <button onclick="navigator.clipboard.writeText('${data.code}'); alert('Copied!');" 
-                class="bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-xl hover:from-yellow-500 hover:to-orange-500 transition-all">
-                📋 Copy Code
-            </button>
+    // Clear existing content and show MASSIVE CODE
+    const codeContainer = document.createElement('div');
+    codeContainer.className = 'space-y-8';
+    codeContainer.innerHTML = `
+        <div class="w-32 h-32 bg-thunder/30 rounded-3xl mx-auto flex items-center justify-center border-4 border-thunder/50 mb-8">
+            <i class="fas fa-key text-6xl text-thunder"></i>
         </div>
+        <h2 class="text-5xl font-bold bg-gradient-to-r from-thunder via-yellow-400 to-orange-500 bg-clip-text text-transparent mb-8">
+            Your Verification Code!
+        </h2>
+        <div class="bg-black/60 backdrop-blur-2xl p-12 rounded-3xl border-4 border-thunder/60 shadow-2xl max-w-2xl mx-auto">
+            <div class="text-8xl md:text-9xl font-black text-thunder mb-8 font-mono tracking-widest drop-shadow-2xl text-center leading-none" id="code-display">${data.code}</div>
+            <p class="text-2xl text-white/90 text-center mb-8">
+                Copy this code and paste it in Discord:
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="copyCode('${data.code}')" 
+                    class="flex-1 bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-thunder/50 transition-all hover:-translate-y-1 border-2 border-transparent hover:border-white/30">
+                    📋 Copy Code
+                </button>
+                <a href="https://discord.gg/ragingthunder" 
+                    class="flex-1 bg-gradient-to-r from-primary to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-primary/50 transition-all hover:-translate-y-1 text-center">
+                    <i class="fab fa-discord mr-2"></i>Return to Discord
+                </a>
+            </div>
+        </div>
+        <p class="text-lg text-white/80 max-w-md mx-auto text-center">
+            Your accounts will be linked automatically! 🎉
+        </p>
     `;
     
     // Update progress bar
+    document.getElementById('roblox-step').classList.remove('bg-thunder/30');
     document.getElementById('roblox-step').classList.add('bg-thunder');
+    document.getElementById('verified-step').classList.remove('hidden');
 } else {
     throw new Error(data.error || 'Failed to generate code');
 }
