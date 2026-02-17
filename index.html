@@ -226,13 +226,36 @@
 
                 const data = await response.json();
                 
-                if (data.redirectUrl) {
-                    // Redirect to Roblox OAuth
-                    document.getElementById('loading-text').textContent = 'Redirecting to Roblox...';
-                    window.location.href = data.redirectUrl;
-                } else {
-                    throw new Error(data.error || 'Failed to start verification');
-                }
+             if (data.success && data.code) {
+    // ✅ Show verification code!
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('success-state').classList.remove('hidden');
+    
+    // Update success message with code
+    const successDiv = document.querySelector('#success-state > div');
+    successDiv.innerHTML = `
+        <div class="text-center space-y-6">
+            <div class="w-32 h-32 bg-green-500/20 rounded-3xl mx-auto flex items-center justify-center border-4 border-green-500/30">
+                <i class="fas fa-key text-5xl text-green-500"></i>
+            </div>
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">Your Code!</h2>
+            <div class="bg-black/50 p-8 rounded-3xl border-4 border-thunder/50">
+                <div class="text-5xl font-bold text-thunder mb-4 font-mono tracking-widest">${data.code}</div>
+                <p class="text-white/80 text-lg">Copy this and paste in Discord <code class="bg-gray-900 px-3 py-1 rounded text-thunder">/verify</code></p>
+            </div>
+            <button onclick="navigator.clipboard.writeText('${data.code}'); alert('Copied!');" 
+                class="bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-xl hover:from-yellow-500 hover:to-orange-500 transition-all">
+                📋 Copy Code
+            </button>
+        </div>
+    `;
+    
+    // Update progress bar
+    document.getElementById('roblox-step').classList.add('bg-thunder');
+} else {
+    throw new Error(data.error || 'Failed to generate code');
+}
+
             } catch (error) {
                 console.error('Verification failed:', error);
                 showError('Connection Error', 'Could not connect to verification service. Please try again or contact support.');
