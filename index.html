@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon: Raging Thunder - Verify Discord</title>
+    <title>Raging Thunder - Discord Verification</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,7 +32,7 @@
                 Raging Thunder Verification
             </h1>
             <p class="text-xl text-white/80 mb-8 max-w-md mx-auto">
-                Link your Roblox account to Discord in <span id="countdown" class="font-bold text-thunder">3</span> steps
+                Link your Roblox account to Discord
             </p>
         </div>
 
@@ -39,7 +41,7 @@
             <div class="flex justify-between items-center mb-2">
                 <div class="flex items-center space-x-2">
                     <div id="discord-step" class="w-8 h-8 bg-primary/30 rounded-full flex items-center justify-center border-2 border-primary/50">
-                        <i class="fas fa-discord text-primary text-sm"></i>
+                        <i class="fab fa-discord text-primary text-sm"></i>
                     </div>
                     <span class="text-white font-medium">Discord</span>
                 </div>
@@ -54,158 +56,134 @@
                     <div id="verified-step" class="w-8 h-8 bg-green-500/30 rounded-full flex items-center justify-center border-2 border-green-500/50 hidden">
                         <i class="fas fa-check text-green-500 text-sm"></i>
                     </div>
-                    <span class="text-white/70 font-medium">Verified!</span>
+                    <span class="text-white/70 font-medium">Code Ready</span>
                 </div>
             </div>
         </div>
 
-        <!-- NO DISCORD ID - Ask them to get from Discord -->
+        <!-- NO DISCORD ID -->
         <div id="no-discord" class="space-y-6">
             <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl text-center">
                 <i class="fas fa-exclamation-triangle text-yellow-400 text-4xl mb-6 block"></i>
-                <h2 class="text-2xl font-bold text-white mb-4">
-                    Start from Discord First!
-                </h2>
+                <h2 class="text-2xl font-bold text-white mb-4">Start from Discord!</h2>
                 <p class="text-white/80 text-lg mb-8 max-w-md mx-auto">
-                    For security, verification must start from our Discord bot's <code class="bg-gray-900 px-2 py-1 rounded text-thunder font-mono text-sm">/verify</code> command.
+                    Run <code class="bg-gray-900 px-3 py-2 rounded-lg text-thunder font-mono text-lg font-bold">/verify</code> 
+                    in our Discord server first!
                 </p>
-                <div class="bg-gradient-to-r from-primary/20 to-purple-600/20 p-8 rounded-2xl border border-primary/30 mb-8">
-                    <h3 class="font-bold text-xl text-white mb-4 flex items-center justify-center">
-                        <i class="fas fa-discord mr-2 text-primary"></i>Go to Discord
-                    </h3>
-                    <p class="text-white/80 mb-6">Run <code class="bg-gray-900 px-3 py-2 rounded-lg text-thunder font-mono text-lg font-bold">/verify</code></p>
-                    <p class="text-white/70 text-sm">Then click the "Verify with Roblox" button that appears</p>
-                </div>
-                <a href="https://discord.gg/ragingthunder" 
-                   class="inline-block bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-bold py-4 px-12 rounded-2xl text-lg shadow-2xl hover:shadow-thunder/50 transition-all duration-300 transform hover:-translate-y-1 border-2 border-transparent hover:border-white/20">
-                    <i class="fab fa-discord mr-3"></i>
-                    Open Discord Server
+                <a href="https://discord.gg/ragingthunder" class="inline-block bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-bold py-4 px-12 rounded-2xl text-lg shadow-2xl hover:shadow-thunder/50 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fab fa-discord mr-3"></i>Open Discord
                 </a>
             </div>
         </div>
 
-        <!-- HAS DISCORD ID - Normal verification flow -->
+        <!-- Step 1: Verify Button -->
         <div id="step1" class="space-y-6 hidden">
             <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl">
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <i class="fas fa-1 text-thunder mr-3"></i>
-                    Step 1: You're on Discord
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <i class="fas fa-1 text-thunder mr-3"></i>Connected to Discord
                 </h2>
-                <p class="text-white/80 text-lg mb-6">
-                    You came from our Discord verification command. Your Discord account is ready!
-                </p>
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-gradient-to-br from-primary/20 to-blue-600/20 p-6 rounded-xl border border-primary/30">
+                    <div class="bg-gradient-to-br from-primary/20 to-blue-600/20 p-6 rounded-xl border border-primary/30 text-center">
                         <i class="fas fa-shield-alt text-primary text-2xl mb-3 block"></i>
-                        <h3 class="font-bold text-white mb-2">Secure</h3>
-                        <p class="text-white/80 text-sm">OAuth 2.0 protects your accounts</p>
+                        <h3 class="font-bold text-white mb-2">🔒 Secure</h3>
+                        <p class="text-white/80 text-sm">OAuth 2.0 protected</p>
                     </div>
-                    <div class="bg-gradient-to-br from-thunder/20 to-yellow-500/20 p-6 rounded-xl border border-thunder/30">
+                    <div class="bg-gradient-to-br from-thunder/20 to-yellow-500/20 p-6 rounded-xl border border-thunder/30 text-center">
                         <i class="fas fa-bolt text-thunder text-2xl mb-3 block"></i>
-                        <h3 class="font-bold text-white mb-2">Instant</h3>
-                        <p class="text-white/80 text-sm">No codes or games needed</p>
+                        <h3 class="font-bold text-white mb-2">⚡ Instant</h3>
+                        <p class="text-white/80 text-sm">30 seconds total</p>
                     </div>
                 </div>
                 
-                <!-- Discord ID Display -->
-                <div id="discord-info" class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 p-6 rounded-xl border border-gray-700/50 mb-6">
-                    <p class="text-white/80 mb-2"><strong>Discord ID:</strong> <span id="discord-id" class="font-mono bg-gray-900 px-2 py-1 rounded text-thunder"></span></p>
+                <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 p-6 rounded-xl border border-gray-700/50 mb-8">
+                    <p class="text-white/80 mb-2"><strong>Discord ID:</strong></p>
+                    <p id="discord-id" class="font-mono bg-gray-900 px-3 py-2 rounded text-thunder text-lg font-bold"></p>
                 </div>
 
-                <!-- Verify Button -->
-                <button id="verify-btn" onclick="startVerification()" 
-                    class="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-thunder/50 transition-all duration-300 transform hover:-translate-y-1 border-2 border-transparent hover:border-white/20">
-                    <i class="fas fa-arrow-right mr-3"></i>
-                    Verify with Roblox
+                <button id="verify-btn" class="w-full bg-gradient-to-r from-thunder to-yellow-500 hover:from-yellow-500 hover:to-orange-500 text-gray-900 font-bold py-5 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-thunder/50 transition-all duration-300 hover:-translate-y-1 border-2 border-transparent hover:border-white/30 text-center">
+                    <i class="fas fa-robot mr-3"></i>Generate Roblox Code
                 </button>
             </div>
         </div>
 
-        <!-- Success State -->
+        <!-- CODE SUCCESS SCREEN -->
         <div id="success-state" class="hidden text-center space-y-8">
-            <div class="w-32 h-32 bg-green-500/20 rounded-3xl mx-auto flex items-center justify-center border-4 border-green-500/30 mb-8">
-                <i class="fas fa-check-circle text-5xl text-green-500"></i>
+            <div class="w-32 h-32 bg-thunder/30 rounded-3xl mx-auto flex items-center justify-center border-4 border-thunder/50">
+                <i class="fas fa-key text-6xl text-thunder"></i>
             </div>
-            <h2 class="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent mb-4">
-                Verification Complete!
+            <h2 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-thunder via-yellow-400 to-orange-500 bg-clip-text text-transparent mb-4 leading-tight">
+                Your Code!
             </h2>
-            <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20">
-                <p class="text-xl text-white/90 mb-6">Your accounts are now linked! 🎉</p>
-                <div class="grid md:grid-cols-2 gap-6 text-left">
-                    <div class="bg-gradient-to-br from-green-500/20 p-6 rounded-xl border border-green-500/30">
-                        <h3 class="font-bold text-white text-lg mb-2">✅ What happens next:</h3>
-                        <ul class="text-white/80 space-y-1 text-sm">
-                            <li>• You'll get the <strong>Verified</strong> role</li>
-                            <li>• Nickname set to your Roblox username</li>
-                            <li>• Access to all channels</li>
-                        </ul>
-                    </div>
-                    <div class="bg-gradient-to-br from-thunder/20 p-6 rounded-xl border border-thunder/30">
-                        <h3 class="font-bold text-white text-lg mb-2">⚡ Enjoy Raging Thunder:</h3>
-                        <ul class="text-white/80 space-y-1 text-sm">
-                            <li>• 2X Exp and Money</li>
-                            <li>• Free Eevee</li>
-                            <li>• Free og Pbb Gamepasses</li>
-                        </ul>
-                    </div>
+            <div id="code-container" class="bg-black/70 backdrop-blur-2xl p-12 md:p-16 rounded-3xl border-4 border-thunder/60 shadow-2xl max-w-4xl mx-auto">
+                <div class="text-8xl md:text-9xl font-black text-thunder mb-8 font-mono tracking-widest drop-shadow-2xl text-center leading-none" id="code-display">
+                    Loading...
                 </div>
+                <p class="text-2xl text-white/90 mb-8 text-center">
+                    Copy this → Discord <code class="bg-gray-900 px-6 py-3 rounded-xl text-thunder font-bold text-xl font-mono">/verify YOURCODE</code>
+                </p>
             </div>
-            <a href="https://discord.gg/ragingthunder" 
-               class="inline-block bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-12 rounded-2xl text-lg shadow-2xl hover:shadow-green-500/50 transition-all duration-300 transform hover:-translate-y-1">
-                <i class="fab fa-discord mr-2"></i>
-                Return to Discord
-            </a>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+                <button id="copy-btn" onclick="copyCode()" class="flex-1 bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-thunder/50 transition-all hover:-translate-y-1 border-2 border-transparent hover:border-white/30">
+                    📋 Copy Code
+                </button>
+                <a href="https://discord.gg/ragingthunder" class="flex-1 bg-gradient-to-r from-primary to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-primary/50 transition-all hover:-translate-y-1 text-center flex items-center justify-center">
+                    <i class="fab fa-discord mr-2"></i>Return to Discord
+                </a>
+            </div>
+            <div class="text-center">
+                <p class="text-lg text-white/80 max-w-lg mx-auto mb-2">
+                    <strong>Then type:</strong> <code class="bg-gray-900 px-4 py-2 rounded-xl text-thunder font-bold text-lg">/verify ABC123</code>
+                </p>
+                <p class="text-sm text-white/60">✅ Instant Verified role + full access!</p>
+            </div>
         </div>
 
-        <!-- Loading Spinner -->
+        <!-- Loading -->
         <div id="loading" class="hidden text-center py-16">
-            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-thunder mx-auto mb-4"></div>
-            <p class="text-white/80 text-lg" id="loading-text">Verifying your accounts...</p>
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-thunder mx-auto mb-6"></div>
+            <p class="text-xl text-white/80" id="loading-text">Generating secure code...</p>
         </div>
 
-        <!-- Error State -->
+        <!-- Error -->
         <div id="error-state" class="hidden text-center space-y-6">
-            <div class="w-24 h-24 bg-red-500/20 rounded-2xl mx-auto flex items-center justify-center border-4 border-red-500/30 mb-6">
+            <div class="w-24 h-24 bg-red-500/20 rounded-2xl mx-auto flex items-center justify-center border-4 border-red-500/30">
                 <i class="fas fa-exclamation-triangle text-3xl text-red-400"></i>
             </div>
-            <h2 class="text-3xl font-bold text-white/90 mb-4" id="error-title">Something went wrong</h2>
+            <h2 class="text-3xl font-bold text-white mb-4" id="error-title">Error</h2>
             <p class="text-xl text-white/80 mb-8 max-w-md mx-auto" id="error-message"></p>
             <div class="space-y-3">
-                <button onclick="location.reload()" 
-                    class="w-full bg-gradient-to-r from-thunder to-yellow-500 hover:from-yellow-500 hover:to-orange-500 text-gray-900 font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-thunder/50 transition-all duration-300">
+                <button onclick="location.reload()" class="w-full bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-thunder/50 transition-all">
                     <i class="fas fa-redo mr-2"></i>Try Again
                 </button>
-                <a href="https://discord.gg/ragingthunder" 
-                   class="w-full block bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-primary/50 transition-all duration-300 text-center">
-                    <i class="fab fa-discord mr-2"></i>Get Help in Discord
+                <a href="https://discord.gg/ragingthunder" class="w-full block bg-gradient-to-r from-primary to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-primary/50 transition-all text-center">
+                    <i class="fab fa-discord mr-2"></i>Get Help
                 </a>
             </div>
         </div>
     </div>
 
     <script>
-        // Get Discord ID from URL params (sent from Discord bot)
+        // Global state
         const urlParams = new URLSearchParams(window.location.search);
         const discordId = urlParams.get('discord_id');
-        
         let verificationInProgress = false;
+        let generatedCode = '';
 
+        // Initialize page
         function initPage() {
             if (discordId) {
-                // ✅ Came from Discord - show normal flow
                 document.getElementById('no-discord').classList.add('hidden');
                 document.getElementById('step1').classList.remove('hidden');
                 document.getElementById('discord-id').textContent = discordId;
                 document.getElementById('discord-step').classList.remove('bg-primary/30');
                 document.getElementById('discord-step').classList.add('bg-primary');
-                document.getElementById('discord-info').classList.remove('hidden');
             } else {
-                // ❌ Direct access - show instructions
                 document.getElementById('no-discord').classList.remove('hidden');
                 document.getElementById('step1').classList.add('hidden');
             }
         }
 
+        // Generate verification code
         async function startVerification() {
             if (verificationInProgress) return;
             
@@ -214,67 +192,67 @@
             // Show loading
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('loading-text').textContent = 'Starting secure verification...';
+            document.getElementById('loading-text').textContent = 'Generating secure code...';
 
             try {
-                // Call your backend to start OAuth flow
-                    const response = await fetch('/api/start-oauth', {
+                const response = await fetch('/api/start-oauth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ discordId: discordId })
                 });
 
-                const data = await response.json();
-          if (data.success && data.code) {
-    // ✅ PERFECT CODE DISPLAY - Keeps your design!
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('success-state').classList.remove('hidden');
-    
-    // Clear existing content and show MASSIVE CODE
-    const codeContainer = document.createElement('div');
-    codeContainer.className = 'space-y-8';
-    codeContainer.innerHTML = `
-        <div class="w-32 h-32 bg-thunder/30 rounded-3xl mx-auto flex items-center justify-center border-4 border-thunder/50 mb-8">
-            <i class="fas fa-key text-6xl text-thunder"></i>
-        </div>
-        <h2 class="text-5xl font-bold bg-gradient-to-r from-thunder via-yellow-400 to-orange-500 bg-clip-text text-transparent mb-8">
-            Your Verification Code!
-        </h2>
-        <div class="bg-black/60 backdrop-blur-2xl p-12 rounded-3xl border-4 border-thunder/60 shadow-2xl max-w-2xl mx-auto">
-            <div class="text-8xl md:text-9xl font-black text-thunder mb-8 font-mono tracking-widest drop-shadow-2xl text-center leading-none" id="code-display">${data.code}</div>
-            <p class="text-2xl text-white/90 text-center mb-8">
-                Copy this code and paste it in Discord:
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="copyCode('${data.code}')" 
-                    class="flex-1 bg-gradient-to-r from-thunder to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-thunder/50 transition-all hover:-translate-y-1 border-2 border-transparent hover:border-white/30">
-                    📋 Copy Code
-                </button>
-                <a href="https://discord.gg/ragingthunder" 
-                    class="flex-1 bg-gradient-to-r from-primary to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-2xl hover:shadow-primary/50 transition-all hover:-translate-y-1 text-center">
-                    <i class="fab fa-discord mr-2"></i>Return to Discord
-                </a>
-            </div>
-        </div>
-        <p class="text-lg text-white/80 max-w-md mx-auto text-center">
-            Your accounts will be linked automatically! 🎉
-        </p>
-    `;
-    
-    // Update progress bar
-    document.getElementById('roblox-step').classList.remove('bg-thunder/30');
-    document.getElementById('roblox-step').classList.add('bg-thunder');
-    document.getElementById('verified-step').classList.remove('hidden');
-} else {
-    throw new Error(data.error || 'Failed to generate code');
-}
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
 
+                const data = await response.json();
+                
+                if (data.success && data.code) {
+                    generatedCode = data.code;
+                    showCodeScreen(data.code);
+                } else {
+                    throw new Error(data.error || 'No code received');
+                }
             } catch (error) {
-                console.error('Verification failed:', error);
-                showError('Connection Error', 'Could not connect to verification service. Please try again or contact support.');
+                console.error('Code generation failed:', error);
+                showError('Connection Failed', 
+                    'Could not connect to verification service. ' +
+                    'Please try again or contact support in Discord.');
             }
         }
 
+        // Show massive code screen
+        function showCodeScreen(code) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('success-state').classList.remove('hidden');
+            document.getElementById('code-display').textContent = code;
+            
+            // Update progress
+            document.getElementById('roblox-step').classList.remove('bg-thunder/30');
+            document.getElementById('roblox-step').classList.add('bg-thunder');
+            document.getElementById('verified-step').classList.remove('hidden');
+        }
+
+        // Copy code to clipboard
+        function copyCode() {
+            navigator.clipboard.writeText(generatedCode).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const original = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                btn.classList.add('bg-green-500', 'text-white');
+                btn.classList.remove('from-thunder', 'to-yellow-500', 'text-gray-900');
+                
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.classList.remove('bg-green-500', 'text-white');
+                    btn.classList.add('from-thunder', 'to-yellow-500', 'text-gray-900');
+                }, 2000);
+            }).catch(() => {
+                alert('Copy failed! Please copy manually: ' + generatedCode);
+            });
+        }
+
+        // Show error screen
         function showError(title, message) {
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('error-state').classList.remove('hidden');
@@ -282,25 +260,8 @@
             document.getElementById('error-message').textContent = message;
         }
 
-        // Check URL for success/error params from OAuth callback
-        window.addEventListener('DOMContentLoaded', () => {
-            initPage();
-            
-            const error = urlParams.get('error');
-            if (error) {
-                showError('Verification Failed', error);
-                return;
-            }
-            
-            const success = urlParams.get('success');
-            if (success === 'true') {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('no-discord').classList.add('hidden');
-                document.getElementById('success-state').classList.remove('hidden');
-                document.getElementById('verified-step').classList.remove('hidden');
-                document.getElementById('roblox-step').classList.add('bg-thunder');
-            }
-        });
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
 </html>
