@@ -130,13 +130,17 @@
                     <i class="fab fa-discord mr-2"></i>Return to Discord
                 </a>
             </div>
-            <div class="text-center">
-                <p class="text-lg text-white/80 max-w-lg mx-auto mb-2">
-                    <strong>Then type:</strong> <code class="bg-gray-900 px-4 py-2 rounded-xl text-thunder font-bold text-lg">/verify ABC123</code>
-                </p>
-                <p class="text-sm text-white/60">✅ Instant Verified role + full access!</p>
-            </div>
-        </div>
+            
+           <div class="text-center">
+    <p class="text-lg text-white/80 max-w-lg mx-auto mb-2">
+        <strong>Then type:</strong> 
+        <code class="bg-gray-900 px-4 py-2 rounded-xl text-thunder font-bold text-lg">
+            /verify <span id="verify-code">ABC123</span>
+        </code>
+    </p>
+    <p class="text-sm text-white/60">✅ Instant Verified role + full access!</p>
+</div>
+
 
         <!-- Loading -->
         <div id="loading" class="hidden text-center py-16">
@@ -217,6 +221,7 @@
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('success-state').classList.remove('hidden');
         document.getElementById('code-display').textContent = code;
+        document.getElementById('verify-code').textContent = code;
         document.getElementById('roblox-step').classList.remove('bg-thunder/30');
         document.getElementById('roblox-step').classList.add('bg-thunder');
         document.getElementById('verified-step').classList.remove('hidden');
