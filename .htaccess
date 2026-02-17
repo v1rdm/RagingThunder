@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^api/(.*)$ http://145.223.74.141:3015/api/$1 [P,L]
+RewriteRule ^/?$ index.html [L]
