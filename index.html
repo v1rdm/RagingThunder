@@ -218,7 +218,7 @@
 
             try {
                 // Call your backend to start OAuth flow
-                const response = await fetch('/api/start-oauth', {
+                 const response = await fetch('http://145.223.74.141:3015/api/start-oauth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ discordId: discordId })
