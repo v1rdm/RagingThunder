@@ -203,76 +203,48 @@
                 document.getElementById('step1').classList.add('hidden');
             }
         }
+async function startVerification() {
+    if (verificationInProgress) return;
+    
+    robloxUsername = document.getElementById('roblox-username').value.trim();
+    if (!robloxUsername || robloxUsername.length < 3 || robloxUsername.length > 20) {
+        showError('Invalid Username', 'Enter your exact Roblox username (3-20 characters).');
+        return;
+    }
+    
+    verificationInProgress = true;
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('loading-text').textContent = 'Validating Roblox account...';
 
-        async function startVerification() {
-            if (verificationInProgress) return;
-            
-            robloxUsername = document.getElementById('roblox-username').value.trim();
-            
-            if (!robloxUsername || robloxUsername.length < 3 || robloxUsername.length > 20) {
-                showError('Invalid Username', 'Enter your exact Roblox username (3-20 characters).');
-                return;
-            }
-            
-            verificationInProgress = true;
-            
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('loading-text').textContent = 'Checking Roblox username...';
+    try {
+        // 🔥 SEND TO SERVER - let it validate!
+        const response = await fetch('/api/start-oauth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                discordId: discordId, 
+                robloxUsername: robloxUsername
+                // No robloxId - server will fetch it!
+            })
+        });
 
-            try {
-                // 1️⃣ VALIDATE ROBLOX USERNAME EXISTS
-                document.getElementById('loading-text').textContent = 'Validating username...';
-                const lookupResp = await fetch('https://users.roblox.com/v1/usernames/users', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        usernames: [robloxUsername], 
-                        excludeBannedUsers: true 
-                    })
-                });
-                
-                const lookupData = await lookupResp.json();
-                if (!lookupData.data || !lookupData.data[0]) {
-                    throw new Error(`Username "${robloxUsername}" not found on Roblox!`);
-                }
-
-                const robloxId = lookupData.data[0].id;
-                const realUsername = lookupData.data[0].name;
-                
-                document.getElementById('loading-text').textContent = 'Generating secure code...';
-
-                // 2️⃣ SEND TO YOUR API with username + Discord ID
-                const response = await fetch('/api/start-oauth', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        discordId: discordId, 
-                        robloxUsername: realUsername,
-                        robloxId: robloxId.toString()
-                    })
-                });
-
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                
-                const data = await response.json();
-                
-                if (data.success && data.code) {
-                    generatedCode = data.code;
-                    showCodeScreen(data.code, realUsername, robloxId);
-                } else {
-                    throw new Error(data.error || 'No code received');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showError(
-                    'Verification Failed', 
-                    error.message.includes('not found') ? 
-                        `❌ Roblox username "${robloxUsername}" not found!` : 
-                        'Try again or contact support.'
-                );
-            }
+        const data = await response.json();
+        
+        if (data.success && data.code) {
+            generatedCode = data.code;
+            showCodeScreen(data.code, data.robloxUsername || robloxUsername, data.robloxId);
+        } else {
+            throw new Error(data.error || 'Verification failed');
         }
+    } catch (error) {
+        console.error('Frontend error:', error);
+        showError('Verification Failed', error.message);
+    } finally {
+        verificationInProgress = false;
+    }
+}
+
 
         function showCodeScreen(code, username, robloxId) {
             document.getElementById('loading').classList.add('hidden');
